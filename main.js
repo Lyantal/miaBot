@@ -84,4 +84,4 @@ client.on('message', message =>{
 
 });
 
-client.login('ODE2NzA5MTY5MDg4MDM2OTM1.YD-5rw.KqWJ8UmhJ-tMcLsv7Nn7l7NbH6M');
+client.login('yourDiscordLogin');
