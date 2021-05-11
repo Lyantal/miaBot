@@ -1,0 +1,87 @@
+<html>
+    <head>
+
+
+    </head>
+    <body>
+        <h1>SetupHeroes</h1>
+
+        <h4> Add a new hero</h4>
+        <input class="hero-input" type = "text" placeholder = "paste hero url" />
+        <button type = "submit" onclick="submitHero()">submit</button>
+
+        <div class="container"></div>
+
+        <script src="bower_components/jquery/jquery.js"></script>
+
+
+        <script>
+            $(document).ready(function() {
+
+            });
+
+            function submitHero() {
+                const pageURL = document.querySelector('.hero-input').value;
+                fetch('http://localhost:3000/heroesList', {
+                    method: 'Post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({pageURL})
+
+                })
+            }
+
+            function newEl(type, attrs={}) {
+                const el = document.createElement(type);
+                for (let attr in attrs) {
+                    const value = attrs[attr];
+                    if (attr == 'innerText') el.innerText = value;
+                    else el.setAttribute(attr, value);
+                }
+                return el;
+            }
+
+            
+
+            async function loadHeroes() {
+                const res = await fetch('http://localhost:3000/heroesList')
+                const heroesList = await res.json();
+
+                const ctr = document.querySelector('.container');
+
+                heroesList.forEach(hero => {
+                    const card = newEl('div', {class: 'card'});
+                    const id = newEl('h4', {innerText: hero.id});
+                    const name = newEl('h2', {innerText: hero.heroName});
+                    const title = newEl('h4', {innerText: hero.heroTitle});
+                    const heroPicture = newEl('img', {src: hero.heroImg});
+                    card.appendChild(id);
+                    card.appendChild(name);
+                    card.appendChild(title);
+                    card.appendChild(heroPicture);
+
+
+                    ctr.appendChild(card);
+                })
+
+            }
+
+            loadHeroes();
+
+        </script>
+
+        <style>
+            .container{
+                display: flex;
+                background-color: rgb(76, 84, 199);
+            }
+            .card{
+                margin: 5px;
+                padding: 10px;
+                border: 2px solid rgb(0, 0, 0);
+            }
+        </style>
+
+    </body>
+</html>
