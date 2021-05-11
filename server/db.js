@@ -38,9 +38,9 @@ async function getConnection() {
     return await typeorm.createConnection({
         type: "mysql",
         host: "localhost",
-        port: 3306,
-        username: "root",
-        password: "Kjmnu8*SA",
+        port: yourPort,
+        username: "yourUsername",
+        password: "yourPassword",
         database: "setupheroes",
         synchronize: true,
         logging: false,
